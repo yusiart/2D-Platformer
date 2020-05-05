@@ -1,0 +1,5 @@
+sceneSetups:
+- path: Assets/Prefabs/2dPlatformer.unity
+  isLoaded: 1
+  isActive: 1
+  isSubScene: 0
