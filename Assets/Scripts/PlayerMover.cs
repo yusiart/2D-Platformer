@@ -1,17 +1,19 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Events;
 
-public class PlayerMoving : MonoBehaviour
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(SpriteRenderer))]
+public class PlayerMover : MonoBehaviour
 {
     [SerializeField] private float _speed;
-    [SerializeField] private float _jumpSpeed;
+    [SerializeField] private float _jumpAcceleration;
 
     private Animator _animator;
     private bool _isGrounded = true;
-    private Rigidbody2D _rigidbody;
     private SpriteRenderer _renderer;
+    private Rigidbody2D _rigidbody;
+    
 
     private void Start()
     {
@@ -20,7 +22,7 @@ public class PlayerMoving : MonoBehaviour
         _renderer = GetComponent<SpriteRenderer>();
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetKey(KeyCode.A))
         {
@@ -36,7 +38,7 @@ public class PlayerMoving : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Space) && _isGrounded)
         {
-            _rigidbody.velocity = new Vector2(0, _jumpSpeed);
+            _rigidbody.velocity = new Vector2(0, _jumpAcceleration);
             _isGrounded = false;
         }
 
@@ -50,7 +52,7 @@ public class PlayerMoving : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Ground")
         {

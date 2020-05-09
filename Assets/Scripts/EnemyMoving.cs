@@ -3,32 +3,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SpriteRenderer))]
 public class EnemyMoving : MonoBehaviour
 {
     [SerializeField] private Transform _pointA;
     [SerializeField] private Transform _pointB;
-    [SerializeField] private Transform _current;
+    [SerializeField] private Transform _currentPosition;
     [SerializeField] private float _speed;
 
     private Transform _target;
     private SpriteRenderer _renderer;
 
-    void Start()
+    private void Start()
     {
         _renderer = GetComponent<SpriteRenderer>();
         _target = _pointA;
     }
 
-    void Update()
+    private void Update()
     {
-        transform.position = Vector3.MoveTowards(_current.position, _target.position, _speed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(_currentPosition.position, _target.position, _speed * Time.deltaTime);
 
-        if (_current.position == _pointB.position)
+        if (_currentPosition.position == _pointB.position)
         {
             _target = _pointA;
             _renderer.flipX = false;
         }
-        else if (_current.position == _pointA.position)
+        else if (_currentPosition.position == _pointA.position)
         {
             _target = _pointB;
             _renderer.flipX = true;

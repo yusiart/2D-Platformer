@@ -7,21 +7,21 @@ using Random = System.Random;
 
 public class CrystalSpawns : MonoBehaviour
 {
-  [SerializeField] private Transform[] _transform;
-  [SerializeField] private GameObject _crystal;
+    [SerializeField] private Transform[] _transform;
+    [SerializeField] private GameObject _crystal;
 
-  static Random _random = new Random();
-  private float _runingTime;
-  private int _appointPosition;
+    static Random _random = new Random();
+    private float _timeToCreatingCrystal;
+    private int _appointPosition;
 
-  private void Update()
-  {
-    _runingTime += Time.deltaTime;
-    if (_runingTime >= 3)
+    private void Update()
     {
-      _appointPosition = _random.Next(0, _transform.Length);
-      Instantiate(_crystal, _transform[_appointPosition].position, Quaternion.identity);
-      _runingTime = 0;
+        _timeToCreatingCrystal += Time.deltaTime;
+        if (_timeToCreatingCrystal >= 3)
+        {
+            _appointPosition = _random.Next(0, _transform.Length);
+            Instantiate(_crystal, _transform[_appointPosition].position, Quaternion.identity);
+            _timeToCreatingCrystal = 0;
+        }
     }
-  }
 }
