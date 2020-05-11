@@ -54,14 +54,14 @@ public class PlayerMover : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Ground")
-        {
-            _isGrounded = true;
-        }
-
-        if (collision.gameObject.tag == "Crystal")
+        if (collision.gameObject.TryGetComponent<Crystal>(out Crystal crystal))
         {
             Destroy(collision.gameObject);
+        }
+
+        if (collision.gameObject.TryGetComponent<Ground>(out Ground ground))
+        {
+            _isGrounded = true;
         }
     }
 }
